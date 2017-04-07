@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 该xml配置中,xml元素大小写不敏感 -->
+<!-- status="off",log4j2把自身事件记录到控制台的配置，off表示不记录，其余的记录有trace，debug，info，warn，error，fatal -->
+<!-- monitorInterval表示检测更改配置的时间,单位是秒,最小间隔为5秒,0或负数表示不检测 -->
+<configuration name="test-config" status="off" monitorInterval="0">
+
+    <properties>
+        <property name="FORMAT">%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</property>
+    </properties>
+
+    <appenders>
+
+        <!-- 常见的输出到console,常用于开发环境中,默认是system_err,还有一个system_out -->
+        <console name="console" target="system_out">
+            <!-- appender级别的日志过滤 -->
+            <!-- <thresholdFilter level="info" onMatch="accept" onMismatch="deny"/> -->
+            <patternLayout pattern="${FORMAT}"/>
+        </console>
+
+
+        <RandomAccessFile name="asyncLog" fileName="/Users/terry-pc/asyncLog.log"
+                          immediateFlush="false" append="false">
+            <PatternLayout>
+                <Pattern>%d %p %class{1.} [%t] %location %m %ex%n</Pattern>
+            </PatternLayout>
+        </RandomAccessFile>
+
+    </appenders>
+
+    <loggers>
+
+        <AsyncLogger name="pers.terry.common" level="debug" includeLocation="true" additivity="false">
+            <AppenderRef ref="asyncLog"/>
+        </AsyncLogger>
+
+        <!-- root logger,一般用于放置所有的appender -->
+        <root level="DEBUG">
+            <appender-ref ref="console"/>
+            <!--<appender-ref ref="asyncLog"/>-->
+        </root>
+
+    </loggers>
+
+</configuration>
