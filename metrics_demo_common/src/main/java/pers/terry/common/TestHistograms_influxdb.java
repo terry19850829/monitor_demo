@@ -16,10 +16,12 @@ import java.util.concurrent.TimeUnit;
  * Created by terry on 2017/4/7.
  * <p>
  * 分布
+ * <p>
+ * report to influxDB
  */
-public class TestHistograms {
+public class TestHistograms_influxdb {
 
-    private static final Logger logger = LoggerFactory.getLogger(TestHistograms.class);
+    private static final Logger logger = LoggerFactory.getLogger(TestHistograms_influxdb.class);
 
     private static final MetricRegistry metricRegistry = new MetricRegistry();
     private static final ConsoleReporter consoleReportor = ConsoleReporter.forRegistry(metricRegistry).build();
@@ -31,7 +33,7 @@ public class TestHistograms {
             .build();
 
 
-    private static final Histogram randomNums = metricRegistry.histogram(metricRegistry.name(TestHistograms.class, "random"));
+    private static final Histogram randomNums = metricRegistry.histogram(metricRegistry.name(TestHistograms_influxdb.class, "random"));
 
     public static void main(String[] args) throws InterruptedException {
         reporter.start(10, TimeUnit.SECONDS);
