@@ -33,7 +33,7 @@ public class TestHistograms_openTSDB {
                 .convertDurationsTo(TimeUnit.SECONDS)
                 .convertRatesTo(TimeUnit.MILLISECONDS)
                 .build(OpenTsdb
-                        .forService("http://localhost:4242")
+                        .forService("http://localhost:4242") // must have a http schema
                         .create())
                 .start(3L, TimeUnit.SECONDS);
 
